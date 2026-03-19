@@ -1,0 +1,33 @@
+{
+  "createUser": [
+    {
+      "name": "Abhinav Gautam",
+      "email": "abhinav@example.com",
+      "expectedStatus": 201
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "expectedStatus": 201
+    },
+    {
+      "name": "John Smith",
+      "email": "john@example.com",
+      "expectedStatus": 201
+    }
+  ],
+  "updateUser": [
+    {
+      "id": 1,
+      "name": "Updated Leanne",
+      "email": "updated@example.com",
+      "expectedStatus": 200
+    },
+    {
+      "id": 2,
+      "name": "Updated Ervin",
+      "email": "ervin.updated@example.com",
+      "expectedStatus": 200
+    }
+  ]
+}

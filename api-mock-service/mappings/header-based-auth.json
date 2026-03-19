@@ -1,0 +1,76 @@
+{
+  "mappings": [
+    {
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "url": "/api/protected",
+        "headers": {
+          "Authorization": {
+            "equalTo": "Bearer valid-token-123"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "message": "Authenticated successfully",
+          "user": "admin",
+          "role": "superuser"
+        }
+      },
+      "metadata": {
+        "description": "Returns 200 with user data when valid auth token is provided."
+      }
+    },
+    {
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "url": "/api/protected",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .*"
+          }
+        }
+      },
+      "response": {
+        "status": 403,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "error": "Forbidden",
+          "message": "Invalid or expired token"
+        }
+      },
+      "metadata": {
+        "description": "Returns 403 when a Bearer token is present but invalid."
+      }
+    },
+    {
+      "priority": 3,
+      "request": {
+        "method": "GET",
+        "url": "/api/protected"
+      },
+      "response": {
+        "status": 401,
+        "headers": {
+          "Content-Type": "application/json",
+          "WWW-Authenticate": "Bearer"
+        },
+        "jsonBody": {
+          "error": "Unauthorized",
+          "message": "No authentication token provided"
+        }
+      },
+      "metadata": {
+        "description": "Returns 401 when no Authorization header is present. Tests your client's auth error handling: Does it redirect to login? Does it refresh the token?"
+      }
+    }
+  ]
+}

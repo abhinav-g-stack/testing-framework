@@ -1,0 +1,24 @@
+{
+  "scenarioName": "Rate Limiting",
+  "requiredScenarioState": "Rate Limited",
+  "request": {
+    "method": "GET",
+    "url": "/api/rate-limited"
+  },
+  "response": {
+    "status": 429,
+    "headers": {
+      "Content-Type": "application/json",
+      "Retry-After": "60",
+      "X-RateLimit-Remaining": "0"
+    },
+    "jsonBody": {
+      "error": "Too Many Requests",
+      "message": "Rate limit exceeded. Please retry after 60 seconds.",
+      "retryAfter": 60
+    }
+  },
+  "metadata": {
+    "description": "Second state: returns 429 Too Many Requests. Tests that your client: 1) Reads Retry-After header, 2) Implements exponential backoff, 3) Doesn't crash on 429, 4) Retries after the specified time."
+  }
+}

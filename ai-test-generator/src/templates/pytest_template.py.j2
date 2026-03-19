@@ -1,0 +1,39 @@
+{#
+    Jinja2 Template for pytest API Tests
+
+    This generates Python/pytest test files — an alternative to Rest Assured
+    when the target team uses Python.
+#}
+"""
+AUTO-GENERATED TEST FILE
+Generated from: {{ spec_name }}
+Generated at: {{ timestamp }}
+Endpoints covered: {{ endpoints | length }}
+
+Review before running against production.
+"""
+
+import pytest
+import requests
+
+BASE_URL = "{{ base_url }}"
+
+
+@pytest.fixture
+def api_client():
+    """Shared session with base URL and common headers."""
+    session = requests.Session()
+    session.headers.update({
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    })
+    return session
+
+
+{% for endpoint in endpoints %}
+# ─── {{ endpoint.method }} {{ endpoint.path }} ─────────────────────────
+# {{ endpoint.summary or 'No description' }}
+
+{% endfor %}
+
+{{ test_methods }}

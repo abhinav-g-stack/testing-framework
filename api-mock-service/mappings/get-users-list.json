@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/users"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "users-list.json"
+  },
+  "metadata": {
+    "description": "Returns the full user list from a static file (__files/users-list.json). Use bodyFileName for large/complex responses instead of inline jsonBody."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Single User Response",
+  "description": "JSON Schema for GET /users/{id} response from JSONPlaceholder",
+  "type": "object",
+  "required": ["id", "name", "username", "email"],
+  "properties": {
+    "id": { "type": "integer" },
+    "name": { "type": "string" },
+    "username": { "type": "string" },
+    "email": { "type": "string" },
+    "phone": { "type": "string" },
+    "website": { "type": "string" },
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "suite": { "type": "string" },
+        "city": { "type": "string" },
+        "zipcode": { "type": "string" }
+      }
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "catchPhrase": { "type": "string" },
+        "bs": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{#
+    Jinja2 Template for Rest Assured Test Class
+
+    HOW TEMPLATE + LLM HYBRID WORKS:
+    1. This template provides the STRUCTURE (imports, class, setup, method signatures)
+    2. The LLM generates the CONTENT (test scenarios, assertions, data providers)
+    3. The generator stitches them together
+
+    WHY:
+    - Consistent imports across ALL generated files (no missing imports)
+    - Consistent class structure (always has BaseTest, Allure annotations)
+    - LLM focuses on what it's good at: creative test case generation
+    - Template handles what it's good at: boilerplate consistency
+
+    TEMPLATE VARIABLES (populated by the generator):
+    - class_name: Name of the generated test class
+    - base_url: API base URL from the spec
+    - endpoints: List of EndpointInfo objects
+    - test_methods: LLM-generated test method code
+    - data_providers: LLM-generated data provider methods
+#}
+package com.sdet.api.tests.generated;
+
+import com.sdet.api.base.BaseTest;
+import io.qameta.allure.*;
+import io.restassured.response.Response;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+
+/**
+ * AUTO-GENERATED TEST CLASS
+ * Generated from: {{ spec_name }}
+ * Generated at: {{ timestamp }}
+ * Endpoints covered: {{ endpoints | length }}
+ *
+ * WARNING: Review generated tests before running against production.
+ * AI-generated tests may need adjustment for:
+ * - Authentication headers
+ * - Environment-specific base URLs
+ * - Test data cleanup
+ */
+@Epic("{{ epic_name | default('API Tests') }}")
+@Feature("{{ feature_name | default('Generated Tests') }}")
+public class {{ class_name }} extends BaseTest {
+
+{% for endpoint in endpoints %}
+    // ─── {{ endpoint.method }} {{ endpoint.path }} ─────────────────────────
+{% if endpoint.summary %}
+    // {{ endpoint.summary }}
+{% endif %}
+
+{% endfor %}
+
+    // ═══ Generated Test Methods ═════════════════════════════════════════
+{{ test_methods }}
+
+    // ═══ Generated Data Providers ═══════════════════════════════════════
+{{ data_providers }}
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+    TestNG Suite Configuration
+
+    RUN COMMANDS:
+      mvn test                            → Runs entire suite (dev environment)
+      mvn test -Denv=staging              → Runs against staging
+
+    NOTE: Set JAVA_HOME to JDK 17 before running:
+      export JAVA_HOME=/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home
+-->
+<suite name="API Test Suite" parallel="classes" thread-count="3" verbose="1">
+
+    <listeners>
+        <listener class-name="com.sdet.api.listeners.TestRetryListener"/>
+    </listeners>
+
+    <!-- Smoke Tests: Critical path only, run on every PR -->
+    <test name="Smoke Tests">
+        <parameter name="env" value="dev"/>
+        <classes>
+            <class name="com.sdet.api.tests.UserApiTest">
+                <methods>
+                    <include name="testListUsers"/>
+                    <include name="testGetSingleUser"/>
+                    <include name="testCreateUser"/>
+                </methods>
+            </class>
+            <class name="com.sdet.api.tests.PostApiTest">
+                <methods>
+                    <include name="testGetSinglePost"/>
+                    <include name="testCreatePost"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <!-- Full Regression -->
+    <test name="User API Regression">
+        <parameter name="env" value="dev"/>
+        <classes>
+            <class name="com.sdet.api.tests.UserApiTest"/>
+            <class name="com.sdet.api.tests.PostApiTest"/>
+            <class name="com.sdet.api.tests.ResourceApiTest"/>
+        </classes>
+    </test>
+
+    <!-- Schema Validation -->
+    <test name="Schema Validation">
+        <parameter name="env" value="dev"/>
+        <classes>
+            <class name="com.sdet.api.tests.SchemaValidationTest"/>
+        </classes>
+    </test>
+
+</suite>

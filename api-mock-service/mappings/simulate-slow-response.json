@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/slow-endpoint"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "data": "This response was intentionally delayed"
+    },
+    "fixedDelayMilliseconds": 10000
+  },
+  "metadata": {
+    "description": "10-second delayed response for testing client timeout handling. If your HTTP client has a 5-second timeout, this stub will trigger it — letting you verify timeout error handling without depending on actual network issues."
+  }
+}

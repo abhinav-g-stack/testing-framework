@@ -1,0 +1,22 @@
+{#
+    Jinja2 Template for Playwright API Tests (TypeScript)
+
+    Playwright isn't just for UI testing — it has excellent API testing support.
+    This generates Playwright-based API test files.
+#}
+/**
+ * AUTO-GENERATED API TEST FILE
+ * Generated from: {{ spec_name }}
+ * Generated at: {{ timestamp }}
+ * Endpoints covered: {{ endpoints | length }}
+ */
+
+import { test, expect } from '@playwright/test';
+
+const BASE_URL = '{{ base_url }}';
+
+{% for endpoint in endpoints %}
+// {{ endpoint.method }} {{ endpoint.path }} — {{ endpoint.summary or 'No description' }}
+{% endfor %}
+
+{{ test_methods }}

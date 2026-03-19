@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/unstable-endpoint"
+  },
+  "response": {
+    "status": 500,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": "Internal Server Error",
+      "message": "Database connection timeout"
+    },
+    "fixedDelayMilliseconds": 3000
+  },
+  "metadata": {
+    "description": "Simulates a server error with 3-second delay. Perfect for testing: 1) error handling in your code, 2) timeout behavior, 3) retry logic, 4) circuit breaker patterns. These scenarios are IMPOSSIBLE to trigger reliably on real APIs."
+  }
+}

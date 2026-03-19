@@ -1,0 +1,24 @@
+{
+  "name": "playwright-e2e-framework",
+  "version": "1.0.0",
+  "description": "Playwright-based E2E automation framework with POM architecture, parallel execution, trace capture, and Docker support",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:chrome": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:debug": "npx playwright test --debug",
+    "test:ui": "npx playwright test --ui",
+    "report": "npx playwright show-report",
+    "trace": "npx playwright show-trace",
+    "docker:test": "docker-compose run --rm playwright"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  },
+  "keywords": ["playwright", "e2e", "automation", "typescript", "pom"],
+  "author": "Abhinav Gautam",
+  "license": "MIT"
+}

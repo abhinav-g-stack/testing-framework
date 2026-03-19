@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Log4j2 Configuration for the API Test Framework.
+
+    HOW LOGGING WORKS IN THIS FRAMEWORK:
+
+    Two outputs:
+    1. Console → Shows INFO and above during test runs (you see progress)
+    2. File (logs/test-execution.log) → Captures DEBUG and above (full detail for debugging)
+
+    Why two levels?
+    - During a passing run, you want minimal noise (INFO: "Test started", "Test passed")
+    - When investigating failures, you want full detail (DEBUG: request bodies, response headers)
+    - The file captures everything; the console filters to what matters right now
+
+    Usage in test code:
+      private static final Logger logger = LogManager.getLogger(YourTest.class);
+      logger.info("Starting test for user: {}", userId);
+      logger.debug("Full response: {}", response.asPrettyString());
+-->
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Console output: colored, concise -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%highlight{%-5level}] %c{1} - %msg%n"/>
+        </Console>
+
+        <!-- File output: full detail, rolls daily -->
+        <RollingFile name="File"
+                     fileName="logs/test-execution.log"
+                     filePattern="logs/test-execution-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5level] %c{1.} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Framework logger: captures our custom logs at DEBUG level to file -->
+        <Logger name="com.sdet.api" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" level="INFO"/>
+            <AppenderRef ref="File" level="DEBUG"/>
+        </Logger>
+
+        <!-- Suppress noisy third-party loggers -->
+        <Logger name="org.apache.http" level="WARN"/>
+        <Logger name="io.restassured" level="WARN"/>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>

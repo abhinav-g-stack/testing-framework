@@ -1,0 +1,19 @@
+{
+  "name": "performance-testing-k6",
+  "version": "1.0.0",
+  "description": "Load testing suite using k6 with configurable scenarios, thresholds, and Grafana dashboards",
+  "scripts": {
+    "test:smoke": "k6 run tests/smoke-test.js",
+    "test:load": "k6 run tests/load-test.js",
+    "test:stress": "k6 run tests/stress-test.js",
+    "test:spike": "k6 run tests/spike-test.js",
+    "test:soak": "k6 run tests/soak-test.js",
+    "test:with-report": "K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=reports/report.html k6 run tests/load-test.js",
+    "dashboard:up": "docker-compose up -d influxdb grafana",
+    "dashboard:down": "docker-compose down",
+    "test:with-dashboard": "k6 run --out influxdb=http://localhost:8086/k6 tests/load-test.js"
+  },
+  "keywords": ["k6", "performance-testing", "load-testing", "grafana"],
+  "author": "Abhinav Gautam",
+  "license": "MIT"
+}

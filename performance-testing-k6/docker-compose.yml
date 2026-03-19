@@ -1,0 +1,40 @@
+# Docker Compose stack: k6 + InfluxDB + Grafana
+#
+# This gives you a full performance testing dashboard.
+# Architecture:
+#   k6 (runs tests) → InfluxDB (stores metrics) → Grafana (visualizes)
+#
+# Usage:
+#   1. docker-compose up -d influxdb grafana   (start dashboard)
+#   2. k6 run --out influxdb=http://localhost:8086/k6 tests/load-test.js
+#   3. Open http://localhost:3000 (Grafana, admin/admin)
+#   4. Import dashboard ID 2587 for k6 metrics
+
+version: '3.8'
+
+services:
+  influxdb:
+    image: influxdb:1.8
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=k6
+      - INFLUXDB_HTTP_MAX_BODY_SIZE=0
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influxdb
+
+volumes:
+  influxdb-data:
+  grafana-data:

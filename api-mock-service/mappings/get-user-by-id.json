@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/api/users/[0-9]+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": "{{request.pathSegments.[2]}}",
+      "name": "Mock User {{request.pathSegments.[2]}}",
+      "email": "user{{request.pathSegments.[2]}}@example.com",
+      "createdAt": "{{now}}"
+    },
+    "transformers": ["response-template"]
+  },
+  "metadata": {
+    "description": "Returns a mock user by ID. Uses WireMock response templating to dynamically include the requested ID in the response — so GET /api/users/5 returns id: 5."
+  }
+}

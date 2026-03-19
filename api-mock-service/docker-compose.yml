@@ -1,0 +1,26 @@
+# WireMock Docker Setup — Service Virtualization
+#
+# WHY service virtualization for senior SDET:
+# - You can't always depend on external APIs during testing (rate limits, downtime, cost)
+# - WireMock lets you create a fake version of any API that responds predictably
+# - Use cases: testing against a payment API without real charges, simulating error responses
+#   that are hard to trigger on real APIs, running tests offline, testing timeout behavior
+#
+# Usage:
+#   docker-compose up -d
+#   curl http://localhost:8080/api/users/1  → returns mocked response
+#   curl http://localhost:8080/__admin/mappings  → view all configured stubs
+
+version: '3.8'
+
+services:
+  wiremock:
+    image: wiremock/wiremock:3.9.1
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./mappings:/home/wiremock/mappings
+      - ./__files:/home/wiremock/__files
+    command:
+      - "--verbose"
+      - "--global-response-templating"    # Enable response templating (dynamic responses)

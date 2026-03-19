@@ -1,0 +1,24 @@
+{
+  "scenarioName": "Rate Limiting",
+  "requiredScenarioState": "Started",
+  "newScenarioState": "Rate Limited",
+  "request": {
+    "method": "GET",
+    "url": "/api/rate-limited"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "X-RateLimit-Remaining": "0",
+      "X-RateLimit-Reset": "{{now offset='60 seconds' format='unix'}}"
+    },
+    "jsonBody": {
+      "data": "First request succeeds"
+    },
+    "transformers": ["response-template"]
+  },
+  "metadata": {
+    "description": "STATEFUL MOCK: First request succeeds, subsequent requests get 429. Demonstrates WireMock's scenario state machine — perfect for testing rate limit handling, retry-after logic, and backoff algorithms. Reset by calling POST /__admin/scenarios/reset"
+  }
+}

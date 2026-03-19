@@ -1,0 +1,52 @@
+# OS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Java
+target/
+*.class
+*.jar
+*.log
+logs/
+
+# Node
+node_modules/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+
+# k6
+reports/*.html
+
+# Docker
+*.log
+
+# Secrets
+.env
+credentials.json
+
+# Allure
+allure-results/
+allure-report/
+
+# Generated output
+ai-test-generator/output/
+
+# Pact generated contracts (regenerated from tests)
+contract-testing-pact/pacts/
+
+# Claude
+.claude/

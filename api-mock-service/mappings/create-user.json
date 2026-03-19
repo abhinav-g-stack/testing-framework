@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/users",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": "{{randomValue type='UUID'}}",
+      "name": "{{jsonPath request.body '$.name'}}",
+      "email": "{{jsonPath request.body '$.email'}}",
+      "createdAt": "{{now}}"
+    },
+    "transformers": ["response-template"]
+  },
+  "metadata": {
+    "description": "Echoes back the submitted user data with a generated UUID. Uses jsonPath to extract fields from the request body — powerful for dynamic mock responses."
+  }
+}

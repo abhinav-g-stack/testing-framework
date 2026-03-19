@@ -1,0 +1,23 @@
+{
+  "name": "contract-testing-pact",
+  "version": "1.0.0",
+  "description": "Consumer-driven contract testing with Pact — demonstrates microservice testing maturity",
+  "scripts": {
+    "test:consumer": "jest --testPathPattern=consumer",
+    "test:provider": "jest --testPathPattern=provider",
+    "test:all": "npm run test:consumer && npm run test:provider",
+    "pact:publish": "npx pact-broker publish pacts --consumer-app-version=$(git rev-parse --short HEAD) --broker-base-url=http://localhost:9292"
+  },
+  "devDependencies": {
+    "@pact-foundation/pact": "^13.1.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.0",
+    "typescript": "^5.6.0",
+    "axios": "^1.7.0",
+    "@types/node": "^22.0.0"
+  },
+  "keywords": ["pact", "contract-testing", "consumer-driven", "microservices"],
+  "author": "Abhinav Gautam",
+  "license": "MIT"
+}
