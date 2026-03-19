@@ -25,11 +25,12 @@ export default defineConfig({
     ],
     use: {
         baseURL: 'https://www.saucedemo.com',
-        trace: 'on-first-retry',                       // Trace only on failed retry
+        testIdAttribute: 'data-test',                    // SauceDemo uses data-test, not data-testid
+        trace: 'on-first-retry',                         // Trace only on failed retry
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
-        actionTimeout: 10000,                           // 10s per action
-        navigationTimeout: 30000,                       // 30s for page loads
+        actionTimeout: 10000,                            // 10s per action
+        navigationTimeout: 30000,                        // 30s for page loads
     },
 
     projects: [

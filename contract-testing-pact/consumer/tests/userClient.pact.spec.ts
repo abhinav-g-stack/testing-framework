@@ -2,7 +2,10 @@ import { PactV4, MatchersV3 } from '@pact-foundation/pact';
 import path from 'path';
 import { UserApiClient, User } from '../src/userClient';
 
-const { like, eachLike, integer, string, email } = MatchersV3;
+const { like, eachLike, integer, string, regex } = MatchersV3;
+
+// Pact doesn't have a built-in email() matcher — use regex instead
+const email = (example: string) => regex(/^[\w.+-]+@[\w-]+\.[\w.]+$/, example);
 
 /**
  * CONSUMER PACT TEST — defines what this service EXPECTS from the User API.
