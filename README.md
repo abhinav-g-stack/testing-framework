@@ -1,4 +1,4 @@
-# Senior SDET Portfolio
+# Testing Framework
 
 Six projects demonstrating test framework design, performance engineering, modern tooling, and AI-assisted testing — built for senior SDET interview readiness.
 
